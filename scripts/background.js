@@ -2,12 +2,12 @@ chrome.tabs.onCreated.addListener(function(tab){
 	chrome.storage.local.get(['vals'], function(results){
 		results.vals.forEach(function(black){
 			if(black.e){
-				if(tab.url == black.u){
+				if( (tab.pendingUrl || tab.url) == black.u) {
 					chrome.tabs.remove(tab.id);
 					return;
 				}
 			}else{
-				if(tab.url.includes(black.u)){
+				if( (tab.pendingUrl || tab.url).includes(black.u) ){
 					chrome.tabs.remove(tab.id);
 					return;
 				}
